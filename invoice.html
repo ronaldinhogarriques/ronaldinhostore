@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Invoice - RonaldinhoStore</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header"><a href="product.html" class="brand">RonaldinhoStore</a></header>
+  <main class="container">
+    <h1>Invoice</h1>
+    <div id="invoiceView" class="card"></div>
+    <div class="buttons">
+      <button onclick="window.print()">Print Invoice</button>
+      <button onclick="window.location.href='product.html'">Back to Shop</button>
+    </div>
+  </main>
+  <script src="js/app.js"></script>
+  <script>
+    const lastInv = sessionStorage.getItem('lastInvoice');
+    if(lastInv){
+      renderInvoiceByNumber(lastInv, 'invoiceView');
+    } else {
+      document.getElementById('invoiceView').textContent = 'No invoice to display.';
+    }
+  </script>
+</body>
+</html>

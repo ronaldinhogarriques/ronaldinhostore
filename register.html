@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Register - RonaldinhoStore</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Register - RonaldinhoStore</h1>
+    <section class="card">
+      <form id="registerForm" onsubmit="return false;">
+        <label>First name <input id="firstName" required></label>
+        <label>Last name <input id="lastName" required></label>
+        <label>Date of Birth <input id="dob" type="date" required></label>
+        <label>Gender
+          <select id="gender" required>
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </label>
+        <label>Phone <input id="phone" required></label>
+        <label>Email <input id="email" type="email" required></label>
+        <label>TRN <input id="trn" placeholder="000-000-000" required></label>
+        <label>Password <input id="password" type="password" required></label>
+        <div class="buttons">
+          <button id="btnRegister" type="button">Register</button>
+          <button id="btnCancel" type="reset">Cancel</button>
+        </div>
+        <div id="registerMsg" class="muted"></div>
+      </form>
+      <p><a href="index.html">Back to Login</a></p>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById('btnRegister').addEventListener('click', ()=>{
+      const vals = {
+        firstName: document.getElementById('firstName').value.trim(),
+        lastName: document.getElementById('lastName').value.trim(),
+        dob: document.getElementById('dob').value,
+        gender: document.getElementById('gender').value,
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        trn: document.getElementById('trn').value.trim(),
+        password: document.getElementById('password').value
+      };
+      try {
+        registerUser(vals);
+        alert('Registration successful. You may now login.');
+        window.location.href = 'index.html';
+      } catch(e) {
+        document.getElementById('registerMsg').textContent = e.message;
+      }
+    });
+  </script>
+</body>
+</html>

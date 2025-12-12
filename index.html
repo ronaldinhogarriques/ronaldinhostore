@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>RonaldinhoStore - Login</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <main class="container">
+    <h1>RonaldinhoStore</h1>
+    <section class="card">
+      <h2>Login</h2>
+      <form id="loginForm" onsubmit="return false;">
+        <label>TRN
+          <input id="loginTrn" placeholder="000-000-000" required>
+        </label>
+        <label>Password
+          <input id="loginPassword" type="password" required>
+        </label>
+        <div class="buttons">
+          <button id="btnLogin" type="button">Login</button>
+          <button id="btnLoginCancel" type="reset">Cancel</button>
+        </div>
+        <p><a href="register.html">Register new account</a> | <a href="#" id="resetPasswordLink">Reset Password</a></p>
+        <div id="loginMsg" class="muted"></div>
+      </form>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+  <script>
+    document.getElementById('btnLogin').addEventListener('click', ()=> {
+      const trn = document.getElementById('loginTrn').value.trim();
+      const pw = document.getElementById('loginPassword').value;
+      try {
+        const res = attemptLogin(trn, pw);
+        if(res.success) {
+          window.location.href = 'product.html';
+        } else if(res.locked) {
+          alert('Account locked after 3 failed attempts.');
+          window.location.href = 'locked.html';
+        } else {
+          document.getElementById('loginMsg').textContent = 'Invalid credentials. Attempts: ' + (res.attempts || 0);
+        }
+      } catch(e) { document.getElementById('loginMsg').textContent = e.message; }
+    });
+    document.getElementById('resetPasswordLink').addEventListener('click', ()=>{
+      const trn = prompt('Enter your TRN to reset password (format 000-000-000):');
+      if(!trn) return;
+      const newPw = prompt('Enter new password (min 8 chars):');
+      if(!newPw) return alert('Cancelled.');
+      try {
+        resetPassword(trn, newPw);
+        alert('Password reset successful. You may now login.');
+      } catch(err){ alert('Error: ' + err.message); }
+    });
+  </script>
+</body>
+</html>

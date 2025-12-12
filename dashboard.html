@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard - RonaldinhoStore</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header"><a href="product.html" class="brand">RonaldinhoStore</a></header>
+  <main class="container">
+    <h1>Dashboard</h1>
+    <section class="card">
+      <h2>User Frequency</h2>
+      <div id="genderChart" class="bar-wrap"></div>
+      <div id="ageChart" class="bar-wrap"></div>
+    </section>
+    <section class="card">
+      <h2>All Invoices (console)</h2>
+      <p>Use the button to print all invoices to the browser console.</p>
+      <div class="buttons">
+        <button id="btnShowInvoices">Show All Invoices</button>
+      </div>
+    </section>
+  </main>
+  <script src="js/app.js"></script>
+  <script>
+    function showFrequency(){
+      const { genders, ageGroups } = ShowUserFrequency();
+      renderBars(genders, 'genderChart');
+      renderBars(ageGroups, 'ageChart');
+    }
+    document.getElementById('btnShowInvoices').addEventListener('click', ()=> {
+      const invs = ShowInvoices();
+      console.log('All Invoices', invs);
+      alert('All invoices written to console.');
+    });
+    showFrequency();
+  </script>
+</body>
+</html>
